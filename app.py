@@ -3,11 +3,11 @@ import pymysql
 
 app = Flask(__name__)
 
-# Database connection
+# 데이터베이스와 연결
 conn = pymysql.connect(host='localhost', user='root', password='root', db='post_db', charset='utf8')
 cursor = conn.cursor()
 
-# Create table
+# 테이블 생성
 cursor.execute("CREATE TABLE IF NOT EXISTS post(id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), content TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
 
 @app.route('/')
@@ -49,6 +49,13 @@ def delete_post(post_id):
     cursor.execute("DELETE FROM post WHERE id = %s", (post_id,))
     conn.commit()
     return redirect(url_for('home'))
+
+@app.route('/search', methods=['POST'])
+def search():
+    keyword = request.form['keyword']
+    cursor.execute("SELECT id, title FROM post WHERE title LIKE %s", ('%' + keyword + '%',))
+    posts = cursor.fetchall()
+    return render_template('index.html', posts=posts)
 
 if __name__ == '__main__':
     app.run(debug=True)
