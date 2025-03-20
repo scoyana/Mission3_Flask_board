@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
     <h1><a href="{{ url_for('home') }}">게시판</a></h1>
     <ul>
-        {% for post in posts %}
-            <li><a href="{{ url_for('view_post', post_id=post[0]) }}">{{ post[1] }}</a></li>
-        {% endfor %}
+      {% for post in posts %}
+      <li>
+        <a href="{{ url_for('view_post', post_id=post[0]) }}">{{ post[1] }}</a
+        ><span id="time">{{ post[3] }}</span>
+      </li>
+      {% endfor %}
     </ul>
-    <a href="{{ url_for('post') }}">새 게시글 작성</a><br>
-    <form action="{{ url_for('search') }}", method="POST">
-        <input type="text" name="keyword" required>
-        <button type="submit">검색</button>
+    <a href="{{ url_for('post') }}">새 게시글 작성</a><br />
+    <form action="{{ url_for('search') }}" , method="POST">
+      <input type="text" name="keyword" required />
+      <button type="submit">검색</button>
     </form>
-</body>
+  </body>
 </html>
