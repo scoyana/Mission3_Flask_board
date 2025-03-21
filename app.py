@@ -67,7 +67,13 @@ def delete_post(post_id):
 @app.route('/search', methods=['POST'])
 def search():
     keyword = request.form['keyword']
-    cursor.execute("SELECT id, title FROM post WHERE title LIKE %s", ('%' + keyword + '%',))
+    search_option = request.form['search_option']
+    if search_option == 'title':
+        cursor.execute("SELECT id, title FROM post WHERE title LIKE %s", ('%' + keyword + '%',))
+    elif search_option == 'content':
+        cursor.execute("SELECT id, title FROM post WHERE content LIKE %s", ('%' + keyword + '%',))
+    elif search_option == 'all':
+        cursor.execute("SELECT id, title FROM post WHERE title LIKE %s OR content LIKE %s", ('%' + keyword + '%', '%' + keyword + '%'))
     posts = cursor.fetchall()
     return render_template('index.html', posts=posts)
 
