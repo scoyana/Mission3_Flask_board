@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글 수정</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-  </head>
-  <body>
+</head>
+<body>
     <form method="post">
-      <label for="title">제목:</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        value="{{ post[1] }}"
-        required
-      />
-      <label for="content">내용:</label>
-      <textarea id="content" name="content" required>{{ post[2] }}</textarea>
-      <button type="submit">저장</button>
+        <label for="title">제목:</label>
+        <input type="text" id="title" name="title" value="{{ post[1] }}" required>
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" required>{{ post[2] }}</textarea>
+        <button type="submit">저장</button>
     </form>
     <a href="{{ url_for('view_post', post_id=post[0]) }}">취소</a>
-  </body>
+</body>
 </html>
