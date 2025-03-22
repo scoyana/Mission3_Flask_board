@@ -17,6 +17,7 @@
         <tr>
           <th>제목</th>
           <th id="time_title">작성일</th>
+          <th id="views_title">조회수</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
         <tr>
           <td><a href="{{ url_for('view_post', post_id=post[0]) }}">{{ post[1] }}</a></td>
           <td id="time">{{ post[3] }}</td>
+          <td id="views">{{ post[4] }}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -15,7 +15,7 @@ conn = pymysql.connect(host='localhost', user='root', password='root', db='post_
 cursor = conn.cursor()
 
 # 테이블 생성
-cursor.execute("CREATE TABLE IF NOT EXISTS post(id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), content TEXT, created_at DATETIME)")
+cursor.execute("CREATE TABLE IF NOT EXISTS post(id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), content TEXT, created_at DATETIME, views INT DEFAULT 0)")
 
 
 # 게시판 메인 화면
@@ -39,6 +39,10 @@ def post():
 # 게시글 상세보기
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
+    # 조회수 증가
+    cursor.execute("UPDATE post SET views = views + 1 WHERE id = %s", (post_id,))
+    conn.commit()
+    
     cursor.execute("SELECT * FROM post WHERE id = %s", (post_id,))
     post = cursor.fetchone()
     return render_template('view_post.html', post=post)
