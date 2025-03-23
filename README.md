@@ -14,7 +14,7 @@
 
 
 ### 기술 스택
-- Python >= 3.8
+- Python
 - Flask
 - pymysql
 - MySQL
